@@ -1,0 +1,66 @@
+package study;
+public  class PersonInfo{
+	 private final String sung;//필수
+	 private final String name;//필수
+	 private final String school;//선택
+	 private final int age;//선택
+	 private final int weight;//선택
+ 
+	 	public static class Builder
+	 	{
+	 		
+	 		 private  String sung;//필수
+	 		 private  String name;//필수
+	 		 private  String school;//선택
+	 		 private  int age;//선택
+	 		 private  int weight;//선택
+	 	
+		 	public Builder(String sung, String name) //필수로 넣을 인수를  넣음
+		 	{
+		 		this.sung = sung;
+		 		this.name = name;
+		 	}
+			 	public Builder school(String val) // 선택적
+			 	{ 
+			 		this.school= val; 
+			 		return this;
+			 	} 
+			 	public Builder age(int val) //선택적
+			 	{ 
+			 		this.age= val; 
+			 		return this;
+			 	} 
+			 	public Builder weight(int val) //선택적
+			 	{ 
+			 		this.weight=val; 
+			 		return this;
+			 	} 
+		 	public PersonInfo bulid()
+		 	{
+		 		return new PersonInfo(this);
+		 	}
+	 	}
+	 	
+	 	public PersonInfo(Builder builder)
+	 	{
+	 		this.sung = builder.sung;
+	 		this.name = builder.name;
+	 		this.school = builder.school;
+	 		this.age = builder.age;
+	 		this.weight = builder.weight;
+	 	}
+ 	
+ 	 public static void main(String[] args) {
+ 		PersonInfo info = new PersonInfo.Builder("김", "진규").age(27).school("없음").bulid(); //"김","진규"는 필수 입력 그다음 선택
+        System.out.println(info.sung);
+        System.out.println(info.name);
+        System.out.println(info.age);
+        System.out.println(info.school);
+        // 처음 객체를 생성할때 builder 한 값이 출력이 됨.. 생성자를 final로 만들어서 변경 불가능 (객체 일관성 )
+        
+ 		System.out.println(info.weight); // 객체에 생성자에 weight를 넣지 않음 << 초기값 0이 출력
+ 		//info.weight << 값을 넣을 수 없음.. 객체의 일관성을 보존하기 위해서 빌더패턴을 씀
+ 		
+       }
+}
+
